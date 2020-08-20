@@ -1,0 +1,21 @@
+.bg-home-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('../assets/home.jpg');
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: -1;
+  width: 100vw;
+}
+
+// .fg-home-page {
+//   opacity: 0.75;
+//   background-color: white;
+//   height: 100%;
+//   z-index: 10000;
+//   border-radius: 0.25em;
+//   margin: 0.5em;
+//   margin-top: 4.5em;
+// }
