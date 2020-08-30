@@ -8,8 +8,8 @@ const store = createStore(
   rootReducer,
   initialState,
   compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() //redux chrome extention req
+    applyMiddleware(thunk)
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() //redux chrome extention req
   )
 );
 
