@@ -8,13 +8,26 @@ import {
   Col,
   Badge,
   Container,
+  CardSubtitle,
 } from 'reactstrap';
 
 import getStatus from '../utilities/PlotStatus';
-import { LikeButton, UnlikeButton, EditButton } from '../utilities/CustomIcons';
+import {
+  LikeButton,
+  UnlikeButton,
+  EditButton,
+  DeleteButton,
+} from '../utilities/CustomIcons';
 import EditPlotModal from './EditPlotModal';
 
-const PlotItem = ({ isAuthenticated, role, hasEditPrev, ...props }) => {
+const PlotItem = ({
+  isAuthenticated,
+  role,
+  hasEditPrev,
+  getPlots,
+  deletePlot,
+  ...props
+}) => {
   const [isSaved, setIsSaved] = useState(false);
   const [isEditInView, setIsEditInView] = useState(false);
 
@@ -49,6 +62,7 @@ const PlotItem = ({ isAuthenticated, role, hasEditPrev, ...props }) => {
         area={props.area}
         type={props.type}
         description={props.description}
+        getPlots={getPlots}
       />
       <Card
         style={{
@@ -69,7 +83,7 @@ const PlotItem = ({ isAuthenticated, role, hasEditPrev, ...props }) => {
             </Col>
           </Row>
         </CardTitle>
-        <CardText>
+        <CardSubtitle>
           <Row>
             <Col style={{ fontSize: 'small', margin: '0' }}>
               {props.area ? (
@@ -89,6 +103,11 @@ const PlotItem = ({ isAuthenticated, role, hasEditPrev, ...props }) => {
               <ButtonGroup>
                 {isAuthenticated && saveButton}
                 {hasEditPrev && <EditButton onClick={handleEdit} />}
+                {hasEditPrev && (
+                  <ButtonGroup>
+                    <DeleteButton onClick={() => deletePlot(props._id)} />
+                  </ButtonGroup>
+                )}
               </ButtonGroup>
             </Col>
           </Row>
@@ -101,30 +120,21 @@ const PlotItem = ({ isAuthenticated, role, hasEditPrev, ...props }) => {
               </Col>
             </Row>
           )}
-        </CardText>
+        </CardSubtitle>
       </Card>
     </div>
   );
 };
 
-const PlotsListView = ({ isAuthenticated, role, layout, token }) => {
-  const [hasEditPrev, setHasEditPrev] = useState(false);
-  const [plots, setPlots] = useState([]);
-
-  useEffect(() => {
-    let filteredPlots;
-
-    if (role.includes('STAFF')) {
-      setHasEditPrev(true);
-      filteredPlots = layout.plots;
-    } else if (role.includes('AGENT')) {
-      filteredPlots = layout.plots.filter((plot) => plot.status !== 'SOLD');
-    } else {
-      filteredPlots = layout.plots.filter((plot) => plot.status === 'LISTED');
-    }
-    setPlots(filteredPlots);
-  }, []);
-
+const PlotsListView = ({
+  isAuthenticated,
+  role,
+  plots,
+  token,
+  getPlots,
+  hasEditPrev,
+  deletePlot,
+}) => {
   return (
     <Container>
       {plots.map((plot) => (
@@ -135,6 +145,8 @@ const PlotsListView = ({ isAuthenticated, role, layout, token }) => {
           isAuthenticated={isAuthenticated}
           hasEditPrev={hasEditPrev}
           token={token}
+          getPlots={getPlots}
+          deletePlot={deletePlot}
         />
       ))}
     </Container>

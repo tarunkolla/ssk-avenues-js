@@ -18,7 +18,7 @@ import { log, error } from '../utilities/Logger';
 import { ErrorAlert } from '../utilities/CustomAlerts';
 
 const AddLayoutModal = (props) => {
-  const { isModalOpen, setIsModalOpen, token } = props;
+  const { isModalOpen, setIsModalOpen, token, getLayouts } = props;
   const [isAdded, setIsAdded] = useState(true);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
   const [formData, updateFormData] = useState('');
@@ -54,6 +54,7 @@ const AddLayoutModal = (props) => {
     axios
       .post('/api/layouts/', JSON.stringify(formData), config)
       .then((res) => {
+        getLayouts();
         log('Layout added succesfully');
         setErrorMessage('');
         setIsModalOpen(false);

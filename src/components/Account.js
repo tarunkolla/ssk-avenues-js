@@ -9,7 +9,7 @@ import {
   Input,
   Row,
   Col,
-  FormFeedback,
+  Breadcrumb,
   FormText,
   TabContent,
   TabPane,
@@ -18,10 +18,19 @@ import {
   NavLink,
   CardTitle,
   CardText,
+  CardImg,
+  CardBody,
+  CardSubtitle,
+  ListGroup,
+  ListGroupItem,
 } from 'reactstrap';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { login, register, logout } from '../redux/actions/authActions';
+import Avatar from '@material-ui/core/Avatar';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 
 const userState = {
   SIGNIN: 'signIn',
@@ -79,7 +88,7 @@ const Account = (props) => {
       style={{ maxWidth: 'fit-content' }}
     >
       {props.auth.isAuthenticated ? (
-        <LogoutView onSubmit={onLogout} />
+        <LogoutView user={props.auth.user} onSubmit={onLogout} />
       ) : (
         <>
           <Nav tabs>
@@ -224,7 +233,7 @@ const RegisterView = (props) => {
                 id="email"
                 onChange={props.handleChangeEmail}
               />
-              <FormText>Enter a valid emial</FormText>
+              <FormText>Enter a valid email</FormText>
             </Col>
           </Row>
           <Row form>
@@ -251,12 +260,57 @@ const RegisterView = (props) => {
   );
 };
 
-const LogoutView = (props) => {
+const LogoutView = ({ user, ...props }) => {
   return (
     <>
-      <Button className="mt-4" outline color="warning" onClick={props.onSubmit}>
-        Sign Out
-      </Button>
+      <Card className="mt-4">
+        <Col>
+          <CardBody>
+            <Avatar
+              className="mx-auto"
+              style={{ width: '5em', height: '5em' }}
+              variant="rounded"
+              alt={user.firstName + ' ' + user.lastName}
+              src={`/api/images/${user?.displayPicture}`}
+            />
+          </CardBody>
+          <Row>
+            <CardBody>
+              <CardTitle className="text-muted">
+                <ListGroup horizontal>
+                  <ListGroupItem disabled>
+                    <PersonOutlinedIcon />
+                  </ListGroupItem>
+                  <ListGroupItem disabled style={{ width: '100%' }}>
+                    {user.firstName + ' ' + user.lastName}
+                  </ListGroupItem>
+                </ListGroup>
+                <ListGroup horizontal style={{ marginTop: '.125em' }}>
+                  <ListGroupItem disabled>
+                    <MailOutlineIcon />
+                  </ListGroupItem>{' '}
+                  <ListGroupItem disabled style={{ width: '100%' }}>
+                    {user.email}
+                  </ListGroupItem>
+                </ListGroup>
+                <ListGroup horizontal style={{ marginTop: '.125em' }}>
+                  <ListGroupItem disabled>
+                    <HomeOutlinedIcon />
+                  </ListGroupItem>
+                  <ListGroupItem disabled style={{ width: '100%' }}>
+                    {user.address ? user.address : 'Unknown'}
+                  </ListGroupItem>
+                </ListGroup>
+              </CardTitle>
+            </CardBody>
+          </Row>
+          <CardTitle className="d-flex justify-content-center">
+            <Button outline color="warning" onClick={props.onSubmit}>
+              Sign Out
+            </Button>
+          </CardTitle>
+        </Col>
+      </Card>
     </>
   );
 };

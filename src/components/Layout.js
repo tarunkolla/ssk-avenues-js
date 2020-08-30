@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { CardColumns } from 'reactstrap';
 
@@ -12,6 +12,10 @@ const Layout = ({ isAuthenticated, role, ...props }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    getLayouts();
+  }, []);
+
+  const getLayouts = useCallback(() => {
     axios({
       method: 'GET',
       url: '/api/layouts/',
@@ -19,20 +23,42 @@ const Layout = ({ isAuthenticated, role, ...props }) => {
       .then((res) => {
         setLayouts(res.data);
         log('Layouts retrived succesfully');
-        setIsLoading(false);
       })
       .catch((err) => {
         error(err);
-      });
+      })
+      .finally(setIsLoading(false));
   }, []);
 
-  console.log(layouts);
+  const deleteLayoutCardHandler = useCallback((layoutId) => {
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        'x-auth-token': props?.token,
+      },
+    };
+
+    setIsLoading(true);
+    axios
+      .delete(`/api/layouts/${layoutId}`, config)
+      .then(() => {
+        getLayouts();
+        log('Layout deleted succesfully');
+      })
+      .catch((e) => error('Could not delete layout', e))
+      .finally(setIsLoading(false));
+  }, []);
+
   return (
     <div style={{ padding: '1em' }}>
       {isLoading && <Loading />}
       {!isLoading && (
         <>
-          <LayoutNavBar token={props.token} />
+          <LayoutNavBar
+            token={props.token}
+            getLayouts={getLayouts}
+            role={role}
+          />
           <CardColumns>
             {layouts.map((layout) => (
               <LayoutCard
@@ -40,6 +66,7 @@ const Layout = ({ isAuthenticated, role, ...props }) => {
                 key={layout._id}
                 isAuthenticated={isAuthenticated}
                 role={role}
+                deleteLayoutCard={deleteLayoutCardHandler}
               />
             ))}
           </CardColumns>

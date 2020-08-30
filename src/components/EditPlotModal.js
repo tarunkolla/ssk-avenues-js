@@ -17,7 +17,7 @@ import axios from 'axios';
 import { log, error } from '../utilities/Logger';
 
 const EditPlotModal = (props) => {
-  const { isModalOpen, setIsModalOpen, token } = props;
+  const { isModalOpen, setIsModalOpen, token, getPlots } = props;
   const [isAdded, setIsAdded] = useState(false);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
   const [formData, updateFormData] = useState({
@@ -57,7 +57,6 @@ const EditPlotModal = (props) => {
   };
 
   const onSubmit = (e) => {
-    console.log(formData);
     const config = {
       headers: {
         'Content-type': 'application/json',
@@ -67,7 +66,7 @@ const EditPlotModal = (props) => {
       config.headers['x-auth-token'] = token;
     }
     e.preventDefault();
-    console.log(formData);
+
     axios
       .patch(`/api/plots/${props.plotId}`, JSON.stringify(formData), config)
       .then((res) => {
@@ -75,6 +74,7 @@ const EditPlotModal = (props) => {
         setIsAdded(true);
         setIsModalOpen(false);
         setErrorMessage('');
+        getPlots();
       })
       .catch((err) => {
         error(err);

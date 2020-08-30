@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 import { error, log } from '../utilities/Logger';
@@ -12,18 +12,42 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const LayoutOverview = (props) => {
-  const [layout, setLayout] = useState({});
+  const [layoutPlots, setLayoutPlots] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [hasEditPrev, setHasEditPrev] = useState(false);
+
+  const role = props.auth.user.role;
 
   useEffect(() => {
+    getPlots();
+  }, [props.auth.isAuthenticated]);
+
+  const filterPlots = (layout) => {
+    let filteredPlots;
+
+    if (role.includes('STAFF')) {
+      setHasEditPrev(true);
+      filteredPlots = layout.plots;
+    } else if (role.includes('AGENT')) {
+      filteredPlots = layout.plots?.filter((plot) => plot.status !== 'SOLD');
+    } else {
+      filteredPlots = layout.plots?.filter((plot) => plot.status === 'LISTED');
+    }
+
+    return filteredPlots;
+  };
+
+  const getPlots = useCallback(() => {
     axios({
       method: 'GET',
       url: `/api/layouts/${props.match.params.id}`,
     })
       .then((res) => {
-        setLayout(res.data);
+        setLayoutPlots(filterPlots(res.data));
         log('Plots retrived succesfully');
+      })
+      .then(() => {
         setIsLoading(false);
       })
       .catch((err) => {
@@ -31,24 +55,45 @@ const LayoutOverview = (props) => {
         setIsLoading(false);
         setIsNotFound(true);
       });
-  }, []);
-  console.log(layout);
+  }, [props.auth.user.role]);
+
+  const deletePlot = (plotId) => {
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+        'x-auth-token': props.auth.token,
+      },
+    };
+
+    axios
+      .delete(`/api/plots/${plotId}`, config)
+      .then(() => {
+        log('Plot deleted succesfully');
+        getPlots();
+      })
+      .catch((e) => error('Could not delete plot', e));
+  };
+
   return (
     <div style={{ padding: '1em' }}>
       {isLoading && <Loading />}
       {!isLoading && isNotFound && <NotFound />}
       {!isLoading && !isNotFound && (
         <>
-          {/* <LayoutCarousel /> */}
           <PlotNavBar
             layoutId={props.match.params.id}
             token={props.auth.token}
+            getPlots={getPlots}
+            role={props.auth.user.role}
           />
           <PlotsListView
-            role={props.auth.user.role}
+            role={role}
             isAuthenticated={props.auth.isAuthenticated}
-            layout={layout}
+            plots={layoutPlots}
             token={props.auth.token}
+            getPlots={getPlots}
+            hasEditPrev={hasEditPrev}
+            deletePlot={deletePlot}
           />
           <PlotSaleProgress />
         </>

@@ -3,15 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Layout from './Layout';
-import AdBar from './AdBar';
+// import AdBar from './AdBar';
 
 const BuyView = (props) => {
-  console.log(props);
   return (
     <div>
-      <AdBar></AdBar>
       <Layout
-        role={props.auth.user}
+        role={props.auth.user.role}
         isAuthenticated={props.auth.isAuthenticated}
         token={props.auth.token}
       />
@@ -22,12 +20,12 @@ const BuyView = (props) => {
 const propTypes = {
   auth: PropTypes.shape({
     user: PropTypes.shape({
-      role: PropTypes.oneOf(['PUBLIC', 'USER', 'AGENT', 'ADMIN', 'STAFF']),
+      role: PropTypes.arrayOf('PUBLIC', 'USER', 'AGENT', 'ADMIN', 'STAFF'),
     }),
   }),
 };
 
-const defaultProps = { auth: { user: { role: 'PUBLIC' } } };
+const defaultProps = { auth: { user: { role: ['PUBLIC'] } } };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,

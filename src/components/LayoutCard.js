@@ -1,53 +1,57 @@
 import React from 'react';
 import {
   Card,
-  Button,
   CardImg,
   CardTitle,
   CardText,
-  CardGroup,
   CardSubtitle,
   CardBody,
   ButtonGroup,
-  ListGroup,
-  ListGroupItem,
+  Container,
 } from 'reactstrap';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import calColor from '../utilities/ColorRatio';
 import RoomIcon from '@material-ui/icons/Room';
 import { withRouter } from 'react-router-dom';
-import { LikeButton, UnlikeButton, InfoButton } from '../utilities/CustomIcons';
 
-const LayoutCard = ({ isAuthenticated, ...props }) => {
+import {
+  LikeButton,
+  UnlikeButton,
+  InfoButton,
+  DeleteButton,
+} from '../utilities/CustomIcons';
+import calColor from '../utilities/ColorRatio';
+
+const LayoutCard = ({ isAuthenticated, role, deleteLayoutCard, ...props }) => {
   const color = calColor(props.availablePlots, props.totalPlots);
 
-  const layoutCardInfoHandler = (props) => {
-    props.history.push(`/buy/layouts/${props._id}`);
+  const layoutCardInfoHandler = (id) => {
+    props.history.push(`/projects/layouts/${id}`);
   };
 
   const layoutCardSaveHandler = () => {
-    console.log('save click');
+    console.log('save click'); // todo
   };
 
   const isSaved = false;
   const saveButton = isSaved ? <LikeButton /> : <UnlikeButton />;
   return (
     <Card>
-      <CardImg
-        top
-        width="100%"
-        src="/assets/318x180.svg"
-        alt="Card image cap"
-      />
+      <CardImg top src={`/api/images/${props.images[0]}`} alt="Layout images" />
       <CardBody>
         <CardTitle
-          onClick={() => layoutCardInfoHandler(props)}
+          onClick={() => layoutCardInfoHandler(props._id)}
           tag="h4"
           style={{ fontWeight: 'bold' }}
         >
           {props.title}
         </CardTitle>
-        <CardSubtitle style={{ fontSize: 'small', fontWeight: 'bold' }}>
+        <CardSubtitle
+          style={{
+            fontSize: 'small',
+            fontWeight: 'bold',
+            marginBottom: '.5em',
+          }}
+        >
           <FiberManualRecordIcon
             style={{
               color: color,
@@ -77,10 +81,17 @@ const LayoutCard = ({ isAuthenticated, ...props }) => {
           }}
         />
         <CardText className="text-muted">{props.description}</CardText>
-        <ButtonGroup size="sm">
-          {isAuthenticated && saveButton}
-          <InfoButton onClick={() => layoutCardInfoHandler(props)} />
-        </ButtonGroup>
+        <Container style={{ display: 'flex' }}>
+          <ButtonGroup size="sm">
+            {isAuthenticated && saveButton}
+            <InfoButton onClick={() => layoutCardInfoHandler(props._id)} />
+          </ButtonGroup>
+          {role?.includes('ADMIN') && (
+            <ButtonGroup className="ml-auto">
+              <DeleteButton onClick={() => deleteLayoutCard(props._id)} />
+            </ButtonGroup>
+          )}
+        </Container>
       </CardBody>
     </Card>
   );

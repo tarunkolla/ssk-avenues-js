@@ -26,7 +26,7 @@ const loadUser = () => (dispatch, getState) => {
       })
     )
     .catch((error) => {
-      dispatch(returnErrors(error.response.data, error.response.status));
+      dispatch(returnErrors(error.response?.data, error.response?.status));
       dispatch({
         type: AUTH_ERROR,
       });
@@ -76,7 +76,7 @@ const login = ({ email, password }) => (dispatch, getState) => {
     )
     .catch((error) => {
       dispatch(
-        returnErrors(error.response.data, error.response.status, 'LOGIN_FAIL')
+        returnErrors(error.response?.data, error.response?.status, 'LOGIN_FAIL')
       );
       dispatch({
         type: LOGIN_FAIL,

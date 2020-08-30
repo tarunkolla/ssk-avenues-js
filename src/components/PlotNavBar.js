@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 import AddPlotModal from './AddPlotModal';
 
-const PlotNavBar = ({ layoutId, token }) => {
+const PlotNavBar = ({ layoutId, token, getPlots, role }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onAddItem = () => {
     setIsModalOpen(!isModalOpen);
@@ -17,9 +17,11 @@ const PlotNavBar = ({ layoutId, token }) => {
   return (
     <div>
       <Breadcrumb tag="nav" listTag="div">
-        <Button className="ml-auto" outline onClick={onAddItem} size="sm">
-          Add item
-        </Button>
+        {role.includes('STAFF') && (
+          <Button className="ml-auto" outline onClick={onAddItem} size="sm">
+            Add item
+          </Button>
+        )}
       </Breadcrumb>
       <AddPlotModal
         isModalOpen={isModalOpen}
@@ -27,6 +29,7 @@ const PlotNavBar = ({ layoutId, token }) => {
         closeModal={onAddItem}
         layoutId={layoutId}
         token={token}
+        getPlots={getPlots}
       />
     </div>
   );

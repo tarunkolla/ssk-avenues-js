@@ -11,15 +11,16 @@ import NavigationBar from './components/NavigationBar';
 import Home from './components/Home.js';
 import NotFound from './components/NotFound.js';
 import LayoutOverview from './components/LayoutOverview.js';
+import Contact from './components/Contact.js';
 
 const Navigation = () => {
   return (
     <Switch>
       <Route exact path="/account" component={Account} />
-      <Route exact path="/buy/layouts/:id" component={LayoutOverview} />
+      <Route exact path="/projects/layouts/:id" component={LayoutOverview} />
       <Route exact path="/projects" component={Buy} />
+      <Route exact path="/contact" component={Contact} />
       <Route exact path="/" component={Home} />
-
       <Route path="/" component={NotFound} />
     </Switch>
   );

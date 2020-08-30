@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const AddButton = (props) => {
   return (
@@ -45,4 +46,23 @@ const InfoButton = (props) => {
   );
 };
 
-export { EditButton, UnlikeButton, LikeButton, InfoButton, AddButton };
+const DeleteButton = (props) => {
+  return (
+    <IconButton onClick={props.onClick} size="small">
+      <DeleteForeverIcon
+        style={{
+          color: 'red',
+        }}
+      />
+    </IconButton>
+  );
+};
+
+export {
+  EditButton,
+  UnlikeButton,
+  LikeButton,
+  InfoButton,
+  AddButton,
+  DeleteButton,
+};
