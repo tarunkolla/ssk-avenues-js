@@ -2,18 +2,15 @@ import React from 'react';
 import { InfoAlert } from '../utilities/CustomAlerts';
 import { Card, Jumbotron, Container } from 'reactstrap';
 import '../styles/App.scss';
-import logo from '../assets/logo.png';
+import logo from '../assets/old-logo.jpg';
 
 const Home = () => {
   return (
     <>
-      <Container>
-        {/* <img
-          src={logo}
-          className="rounded mx-auto d-block"
-          style={{ width: '4em', height: '4em' }}
-        /> */}
-      </Container>
+      {/* <div className="fg-home-page">
+        <img src={logo} className="mx-auto d-block" style={{ height: '5em' }} />
+        <h5 className="fg-home-page-title">Quality is Never Out of Style</h5>
+      </div> */}
       <Jumbotron
         style={{
           height: '90vh',

@@ -60,8 +60,8 @@ const AddPlotModal = (props) => {
         setIsAdded(true);
         setIsModalOpen(false);
         setErrorMessage('');
+        getPlots();
       })
-      .then(getPlots())
       .catch((err) => {
         error(err);
         setErrorMessage(err.message);

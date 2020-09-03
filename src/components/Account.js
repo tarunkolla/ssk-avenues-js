@@ -164,7 +164,7 @@ const LoginView = (props) => {
               <Input
                 type="email"
                 name="email"
-                id="email"
+                id="loginEmail"
                 onChange={props.handleChangeEmail}
               />
               <FormText>Enter your account email.</FormText>
@@ -178,7 +178,7 @@ const LoginView = (props) => {
               <Input
                 type="password"
                 name="password"
-                id="password"
+                id="loginPassword"
                 onChange={props.handleChangePassword}
               />
               <FormText>Enter your account password.</FormText>
@@ -261,6 +261,7 @@ const RegisterView = (props) => {
 };
 
 const LogoutView = ({ user, ...props }) => {
+  console.log(user);
   return (
     <>
       <Card className="mt-4">

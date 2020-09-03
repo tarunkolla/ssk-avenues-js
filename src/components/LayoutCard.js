@@ -36,12 +36,19 @@ const LayoutCard = ({ isAuthenticated, role, deleteLayoutCard, ...props }) => {
   const saveButton = isSaved ? <LikeButton /> : <UnlikeButton />;
   return (
     <Card>
-      <CardImg top src={`/api/images/${props.images[0]}`} alt="Layout images" />
+      <a href={`/api/images/${props.images[0]}`} target="_blank">
+        <CardImg
+          top
+          style={{ cursor: 'pointer' }}
+          src={`/api/images/${props.images[0]}`}
+          alt="Layout image"
+        />
+      </a>
       <CardBody>
         <CardTitle
           onClick={() => layoutCardInfoHandler(props._id)}
           tag="h4"
-          style={{ fontWeight: 'bold' }}
+          style={{ fontWeight: 'bold', cursor: 'pointer' }}
         >
           {props.title}
         </CardTitle>
@@ -84,7 +91,10 @@ const LayoutCard = ({ isAuthenticated, role, deleteLayoutCard, ...props }) => {
         <Container style={{ display: 'flex' }}>
           <ButtonGroup size="sm">
             {isAuthenticated && saveButton}
-            <InfoButton onClick={() => layoutCardInfoHandler(props._id)} />
+            <InfoButton
+              style={{ cursor: 'pointer' }}
+              onClick={() => layoutCardInfoHandler(props._id)}
+            />
           </ButtonGroup>
           {role?.includes('ADMIN') && (
             <ButtonGroup className="ml-auto">

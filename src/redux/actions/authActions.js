@@ -68,12 +68,13 @@ const login = ({ email, password }) => (dispatch, getState) => {
 
   axios
     .post('/api/auth/login', body, tokenConfig(getState))
-    .then((res) =>
+    .then((res) => {
+      console.log(res.data);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
-      })
-    )
+      });
+    })
     .catch((error) => {
       dispatch(
         returnErrors(error.response?.data, error.response?.status, 'LOGIN_FAIL')
