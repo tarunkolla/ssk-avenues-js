@@ -25,7 +25,7 @@ const LayoutCard = ({ isAuthenticated, role, deleteLayoutCard, ...props }) => {
   const color = calColor(props.availablePlots, props.totalPlots);
 
   const layoutCardInfoHandler = (id) => {
-    props.history.push(`/projects/layouts/${id}`);
+    props.history.push(`/realestate/layouts/${id}`);
   };
 
   const layoutCardSaveHandler = () => {

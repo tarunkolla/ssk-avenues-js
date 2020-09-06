@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 
 const NavigationBar = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [account, setAccount] = useState('Account');
+  const [account, setAccount] = useState('Sign In');
 
   const toggle = () => setIsOpen(!isOpen);
 
