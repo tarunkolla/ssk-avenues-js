@@ -36,7 +36,10 @@ const NavigationBar = ({ user }) => {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar>
           <NavItem>
-            <NavLink href="/projects">Projects</NavLink>
+            <NavLink href="/realestate">Real estate</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/power">Power</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="/about">About</NavLink>

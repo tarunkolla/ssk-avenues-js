@@ -12,14 +12,18 @@ import Home from './components/Home.js';
 import NotFound from './components/NotFound.js';
 import LayoutOverview from './components/LayoutOverview.js';
 import Contact from './components/Contact.js';
+import About from './components/About.js';
+import Power from './components/Power.js';
 
 const Navigation = () => {
   return (
     <Switch>
       <Route exact path="/account" component={Account} />
-      <Route exact path="/projects/layouts/:id" component={LayoutOverview} />
-      <Route exact path="/projects" component={Buy} />
+      <Route exact path="/realestate/layouts/:id" component={LayoutOverview} />
+      <Route exact path="/realestate" component={Buy} />
+      <Route exact path="/power" component={Power} />
       <Route exact path="/contact" component={Contact} />
+      <Route exact path="/about" component={About} />
       <Route exact path="/" component={Home} />
       <Route path="/" component={NotFound} />
     </Switch>
@@ -42,4 +46,5 @@ const App = () => {
   );
 };
 
+export { Navigation };
 export default App;
