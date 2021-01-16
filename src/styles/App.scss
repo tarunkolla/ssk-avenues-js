@@ -14,16 +14,14 @@
   height: 60vh;
   width: 100vw;
   position: absolute;
-  z-index: 1024;
-
+  z-index: 10;
   margin: auto auto;
 }
 
 .fg-home-page-title {
   width: 100vw;
   position: absolute;
-  z-index: 1024;
-
+  z-index: 20;
   margin: auto auto;
   font: 100 1.5em/1.5 'Great Vibes', Helvetica, sans-serif;
   background-image: linear-gradient(

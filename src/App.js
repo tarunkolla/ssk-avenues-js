@@ -14,6 +14,7 @@ import LayoutOverview from './components/LayoutOverview.js';
 import Contact from './components/Contact.js';
 import About from './components/About.js';
 import Power from './components/Power.js';
+import Construction from './components/Construction';
 
 const Navigation = () => {
   return (
@@ -21,6 +22,7 @@ const Navigation = () => {
       <Route exact path="/account" component={Account} />
       <Route exact path="/realestate/layouts/:id" component={LayoutOverview} />
       <Route exact path="/realestate" component={Buy} />
+      <Route exact path="/construction" component={Construction} />
       <Route exact path="/power" component={Power} />
       <Route exact path="/contact" component={Contact} />
       <Route exact path="/about" component={About} />
@@ -37,12 +39,15 @@ const App = () => {
   });
 
   return (
-    <Provider store={store}>
-      <Router>
-        <NavigationBar />
-        <Navigation />
-      </Router>
-    </Provider>
+    <>
+      <div className="bg-home-image" />
+      <Provider store={store}>
+        <Router>
+          <NavigationBar />
+          <Navigation />
+        </Router>
+      </Provider>
+    </>
   );
 };
 

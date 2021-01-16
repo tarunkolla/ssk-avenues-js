@@ -80,43 +80,19 @@ const Account = (props) => {
     props.logout();
   };
 
-  //useEffect();
-
   return (
     <Container
       className="w-responsive p-3 mt-2"
-      style={{ maxWidth: 'fit-content' }}
+      style={{
+        maxWidth: '100% !important',
+        width: 'fit-content',
+        minWidth: '33%',
+      }}
     >
       {props.auth.isAuthenticated ? (
         <LogoutView user={props.auth.user} onSubmit={onLogout} />
       ) : (
         <>
-          <Nav tabs>
-            <NavItem>
-              <NavLink
-                className={classnames({
-                  active: activeTab === userState.SIGNIN,
-                })}
-                onClick={() => {
-                  toggle(userState.SIGNIN);
-                }}
-              >
-                Sign In
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={classnames({
-                  active: activeTab === userState.SIGNUP,
-                })}
-                onClick={() => {
-                  toggle(userState.SIGNUP);
-                }}
-              >
-                Sign Up
-              </NavLink>
-            </NavItem>
-          </Nav>
           <TabContent activeTab={activeTab}>
             <TabPane tabId={userState.SIGNIN}>
               <Row style={{ paddingTop: '.5em' }}>
@@ -125,6 +101,7 @@ const Account = (props) => {
                 </Col>
               </Row>
               <LoginView
+                toggle={toggle}
                 onSubmit={onLogin}
                 handleChangeEmail={handleChangeEmail}
                 handleChangePassword={handleChangePassword}
@@ -137,6 +114,7 @@ const Account = (props) => {
                 </Col>
               </Row>
               <RegisterView
+                toggle={toggle}
                 onSubmit={onRegister}
                 handleChangeFirstName={handleChangeFirstName}
                 handleChangeLastName={handleChangeLastName}
@@ -184,9 +162,22 @@ const LoginView = (props) => {
               <FormText>Enter your account password.</FormText>
             </Col>
           </Row>
-          <Button className="mt-4" outline color="success">
-            Sign In
-          </Button>
+          <Row>
+            <Col>
+              <Button className="mt-4" outline color="success">
+                Sign In
+              </Button>
+              <Button
+                onClick={() => {
+                  props.toggle(userState.SIGNUP);
+                }}
+                className="mt-4"
+                color="link"
+              >
+                Sign Up
+              </Button>
+            </Col>
+          </Row>
         </FormGroup>
       </Form>
     </Card>
@@ -250,10 +241,22 @@ const RegisterView = (props) => {
               <FormText>Enter a new password</FormText>
             </Col>
           </Row>
-
-          <Button className="mt-4" outline color="success">
-            Sign Up
-          </Button>
+          <Row>
+            <Col>
+              <Button className="mt-4" outline color="success">
+                Sign Up
+              </Button>
+              <Button
+                onClick={() => {
+                  props.toggle(userState.SIGNIN);
+                }}
+                className="mt-4"
+                color="link"
+              >
+                Sign In
+              </Button>
+            </Col>
+          </Row>
         </FormGroup>
       </Form>
     </Card>

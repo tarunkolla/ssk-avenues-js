@@ -13,7 +13,7 @@ const Home = () => {
           className="mx-auto d-block "
           style={{ height: '5em', marginTop: '10em' }}
         />
-        <h5 className=" my-3 align-middle text-center fg-home-page-title">
+        <h5 className=" my-3 text-center fg-home-page-title">
           Quality is Never Out of Style
         </h5>
       </div>
@@ -22,11 +22,10 @@ const Home = () => {
           height: '89vh',
           margin: '0.5em',
           borderRadius: '.25em',
-          opacity: '.65',
+          opacity: '.35',
         }}
         fluid
       ></Jumbotron>
-      <div className="bg-home-image" />
     </>
   );
 };
