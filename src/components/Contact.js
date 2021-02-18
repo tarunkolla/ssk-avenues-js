@@ -55,7 +55,7 @@ const Contact = ({ token }) => {
         setErrorMessage(err.message);
       });
   };
-  //"proxy": "http://13.58.97.132:5000/",
+
   return (
     <Container style={{ marginTop: '4em' }}>
       <CardGroup className="mx-auto">
