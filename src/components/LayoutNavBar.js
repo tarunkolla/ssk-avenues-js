@@ -10,21 +10,23 @@ const LayoutNavBar = ({ token, getLayouts, role }) => {
   };
 
   return (
-    <div>
-      <Breadcrumb tag="nav" listTag="div">
-        {role.includes('STAFF') && (
-          <Button className="ml-auto" outline onClick={onAddItem} size="sm">
-            Add item
-          </Button>
-        )}
-      </Breadcrumb>
-      <AddLayoutModal
-        isModalOpen={isModalOpen}
-        token={token}
-        setIsModalOpen={setIsModalOpen}
-        getLayouts={getLayouts}
-      />
-    </div>
+    <>
+      {role.includes('STAFF') && (
+        <>
+          <Breadcrumb tag="nav" listTag="div">
+            <Button className="ml-auto" outline onClick={onAddItem} size="sm">
+              Add item
+            </Button>
+          </Breadcrumb>
+          <AddLayoutModal
+            isModalOpen={isModalOpen}
+            token={token}
+            setIsModalOpen={setIsModalOpen}
+            getLayouts={getLayouts}
+          />
+        </>
+      )}
+    </>
   );
 };
 

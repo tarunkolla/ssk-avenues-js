@@ -17,8 +17,7 @@ import axios from 'axios';
 import { log, error } from '../utilities/Logger';
 import { ErrorAlert } from '../utilities/CustomAlerts';
 
-const AddLayoutModal = (props) => {
-  const { isModalOpen, setIsModalOpen, token, getLayouts } = props;
+const AddLayoutModal = ({ isModalOpen, setIsModalOpen, token, getLayouts }) => {
   const [isAdded, setIsAdded] = useState(true);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
   const [formData, updateFormData] = useState('');
@@ -40,7 +39,8 @@ const AddLayoutModal = (props) => {
     });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (event) => {
+    console.log(event);
     const config = {
       headers: {
         'Content-type': 'application/json',
@@ -49,17 +49,19 @@ const AddLayoutModal = (props) => {
     if (token) {
       config.headers['x-auth-token'] = token;
     }
-    e.preventDefault();
+    event.preventDefault();
 
     axios
       .post('/api/layouts/', JSON.stringify(formData), config)
       .then((res) => {
+        console.log(res);
         getLayouts();
         log('Layout added succesfully');
         setErrorMessage('');
         setIsModalOpen(false);
       })
       .catch((err) => {
+        console.log(err);
         setErrorMessage(err);
         error(err);
         setErrorMessage(err.message);

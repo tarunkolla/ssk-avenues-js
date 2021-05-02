@@ -19,6 +19,7 @@ import {
   CardTitle,
   CardText,
   CardImg,
+  CardHeader,
   CardBody,
   CardSubtitle,
   ListGroup,
@@ -81,25 +82,13 @@ const Account = (props) => {
   };
 
   return (
-    <Container
-      className="w-responsive p-3 mt-2"
-      style={{
-        maxWidth: '100% !important',
-        width: 'fit-content',
-        minWidth: '33%',
-      }}
-    >
+    <div className="my-3 mx-3 mt-2">
       {props.auth.isAuthenticated ? (
         <LogoutView user={props.auth.user} onSubmit={onLogout} />
       ) : (
         <>
           <TabContent activeTab={activeTab}>
             <TabPane tabId={userState.SIGNIN}>
-              <Row style={{ paddingTop: '.5em' }}>
-                <Col sm="12" className="text-muted">
-                  <p>Sign up if you don't have an account.</p>
-                </Col>
-              </Row>
               <LoginView
                 toggle={toggle}
                 onSubmit={onLogin}
@@ -108,11 +97,6 @@ const Account = (props) => {
               />
             </TabPane>
             <TabPane tabId={userState.SIGNUP}>
-              <Row style={{ paddingTop: '.5em' }}>
-                <Col sm="12" className="text-muted">
-                  <p>Create a new account with SSK Avenues.</p>
-                </Col>
-              </Row>
               <RegisterView
                 toggle={toggle}
                 onSubmit={onRegister}
@@ -125,140 +109,158 @@ const Account = (props) => {
           </TabContent>
         </>
       )}
-    </Container>
+    </div>
   );
 };
 
 const LoginView = (props) => {
   return (
-    <Card body>
-      <Form onSubmit={props.onSubmit}>
-        <FormGroup className="mt-2 mb-2 mr-sm-2 mb-sm-0">
-          <Row form>
-            <Col>
-              <Label for="email" className="mr-sm-2">
-                Email
-              </Label>
-              <Input
-                type="email"
-                name="email"
-                id="loginEmail"
-                onChange={props.handleChangeEmail}
-              />
-              <FormText>Enter your account email.</FormText>
-            </Col>
-          </Row>
-          <Row form>
-            <Col>
-              <Label for="password" className="mr-sm-2">
-                Password
-              </Label>
-              <Input
-                type="password"
-                name="password"
-                id="loginPassword"
-                onChange={props.handleChangePassword}
-              />
-              <FormText>Enter your account password.</FormText>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Button className="mt-4" outline color="success">
-                Sign In
-              </Button>
-              <Button
-                onClick={() => {
-                  props.toggle(userState.SIGNUP);
-                }}
-                className="mt-4"
-                color="link"
-              >
-                Sign Up
-              </Button>
-            </Col>
-          </Row>
-        </FormGroup>
-      </Form>
+    <Card
+      className="mx-auto"
+      style={{
+        maxWidth: '700px',
+      }}
+    >
+      <CardHeader style={{ fontSize: 'large' }}>Sign In</CardHeader>
+      <CardBody>
+        <Form onSubmit={props.onSubmit}>
+          <FormGroup className="mt-2 mb-2 mr-sm-2 mb-sm-0">
+            <Row form>
+              <Col>
+                <Label for="email" className="mr-sm-2">
+                  Email
+                </Label>
+                <Input
+                  type="email"
+                  name="email"
+                  id="loginEmail"
+                  onChange={props.handleChangeEmail}
+                />
+                <FormText>Enter your account email.</FormText>
+              </Col>
+            </Row>
+            <Row form>
+              <Col>
+                <Label for="password" className="mr-sm-2">
+                  Password
+                </Label>
+                <Input
+                  type="password"
+                  name="password"
+                  id="loginPassword"
+                  onChange={props.handleChangePassword}
+                />
+                <FormText>Enter your account password.</FormText>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Button className="mt-4" outline color="success">
+                  Sign In
+                </Button>
+                <Button
+                  onClick={() => {
+                    props.toggle(userState.SIGNUP);
+                  }}
+                  className="mt-4"
+                  color="link"
+                >
+                  Sign Up
+                </Button>
+              </Col>
+            </Row>
+            <FormText>Sign up if you don't have an account.</FormText>
+          </FormGroup>
+        </Form>
+      </CardBody>
     </Card>
   );
 };
 
 const RegisterView = (props) => {
   return (
-    <Card body>
-      <Form onSubmit={props.onSubmit}>
-        <FormGroup className="mt-2 mb-2 mr-sm-2 mb-sm-0">
-          <Row form>
-            <Col>
-              <Label for="firstName" className="mr-sm-2">
-                First Name
-              </Label>
-              <Input
-                type="firstname"
-                name="firstname"
-                id="firstName"
-                onChange={props.handleChangeFirstName}
-              />
-            </Col>
-            <Col>
-              <Label for="lastName" className="mr-sm-2">
-                Last Name
-              </Label>
-              <Input
-                type="lastname"
-                name="lastname"
-                id="lastName"
-                onChange={props.handleChangeLastName}
-              />
-            </Col>
-          </Row>
-          <Row form>
-            <Col>
-              <Label for="email" className="mr-sm-2">
-                Email
-              </Label>
-              <Input
-                type="email"
-                name="email"
-                id="email"
-                onChange={props.handleChangeEmail}
-              />
-              <FormText>Enter a valid email</FormText>
-            </Col>
-          </Row>
-          <Row form>
-            <Col>
-              <Label for="password" className="mr-sm-2">
-                Password
-              </Label>
-              <Input
-                type="password"
-                name="password"
-                id="password"
-                onChange={props.handleChangePassword}
-              />
-              <FormText>Enter a new password</FormText>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Button className="mt-4" outline color="success">
-                Sign Up
-              </Button>
-              <Button
-                onClick={() => {
-                  props.toggle(userState.SIGNIN);
-                }}
-                className="mt-4"
-                color="link"
-              >
-                Sign In
-              </Button>
-            </Col>
-          </Row>
-        </FormGroup>
-      </Form>
+    <Card
+      className="mx-auto"
+      style={{
+        maxWidth: '700px',
+      }}
+    >
+      <CardHeader style={{ fontSize: 'large' }}>Sign Up</CardHeader>
+      <CardBody>
+        <Form onSubmit={props.onSubmit}>
+          <FormGroup className="mt-2 mb-2 mr-sm-2 mb-sm-0">
+            <Row form>
+              <Col>
+                <Label for="firstName" className="mr-sm-2">
+                  First Name
+                </Label>
+                <Input
+                  type="firstname"
+                  name="firstname"
+                  id="firstName"
+                  onChange={props.handleChangeFirstName}
+                />
+              </Col>
+              <Col>
+                <Label for="lastName" className="mr-sm-2">
+                  Last Name
+                </Label>
+                <Input
+                  type="lastname"
+                  name="lastname"
+                  id="lastName"
+                  onChange={props.handleChangeLastName}
+                />
+              </Col>
+            </Row>
+            <Row form>
+              <Col>
+                <Label for="email" className="mr-sm-2">
+                  Email
+                </Label>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  onChange={props.handleChangeEmail}
+                />
+                <FormText>Enter a valid email</FormText>
+              </Col>
+            </Row>
+            <Row form>
+              <Col>
+                <Label for="password" className="mr-sm-2">
+                  Password
+                </Label>
+                <Input
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={props.handleChangePassword}
+                />
+                <FormText>Enter a new password</FormText>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Button className="mt-4" outline color="success">
+                  Sign Up
+                </Button>
+                <Button
+                  onClick={() => {
+                    props.toggle(userState.SIGNIN);
+                  }}
+                  className="mt-4"
+                  color="link"
+                >
+                  Sign In
+                </Button>
+                <FormText>Sign in if you have an account.</FormText>
+              </Col>
+            </Row>
+          </FormGroup>
+        </Form>
+      </CardBody>
     </Card>
   );
 };
@@ -267,7 +269,7 @@ const LogoutView = ({ user, ...props }) => {
   console.log(user);
   return (
     <>
-      <Card className="mt-4">
+      <Card className="mt-3 mx-auto" style={{ maxWidth: '700px' }}>
         <Col>
           <CardBody>
             <Avatar

@@ -1,102 +1,68 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-
 import { error, log } from '../utilities/Logger';
 import Loading from './Loading';
 import NotFound from './NotFound';
-import PlotsListView from './PlotsListView';
-import PlotNavBar from './PlotNavBar';
-import LayoutCarousel from './LayoutCarousel';
-import PlotSaleProgress from './PlotSaleProgress';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import LayoutCardView from './LayoutCardView';
 
 const LayoutOverview = (props) => {
   const [layoutPlots, setLayoutPlots] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
   const [hasEditPrev, setHasEditPrev] = useState(false);
 
-  const role = props.auth.user.role;
+  // const getLayout = useCallback(() => {
+  //   axios({
+  //     method: 'GET',
+  //     url: `/api/layouts/${props.match.params.id}`,
+  //   })
+  //     .then((res) => {
+  //       setLayoutPlots(res.data);
+  //       log('Layouts retrived succesfully');
+  //     })
+  //     .then(() => {
+  //       setIsLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       error(err);
+  //       setIsLoading(false);
+  //       setIsNotFound(true);
+  //     });
+  // }, [props.match.params.id]);
 
-  useEffect(() => {
-    getPlots();
-  }, [props.auth.isAuthenticated]);
+  // useEffect(() => {
+  //   getLayout();
+  // }, [getLayout, props.auth.isAuthenticated]);
 
-  const filterPlots = (layout) => {
-    let filteredPlots;
+  // const deletePlot = (plotId) => {
+  //   const config = {
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //       'x-auth-token': props.auth.token,
+  //     },
+  //   };
 
-    if (role.includes('STAFF')) {
-      setHasEditPrev(true);
-      filteredPlots = layout.plots;
-    } else if (role.includes('AGENT')) {
-      filteredPlots = layout.plots?.filter((plot) => plot.status !== 'SOLD');
-    } else {
-      filteredPlots = layout.plots?.filter((plot) => plot.status === 'LISTED');
-    }
-
-    return filteredPlots;
-  };
-
-  const getPlots = useCallback(() => {
-    axios({
-      method: 'GET',
-      url: `/api/layouts/${props.match.params.id}`,
-    })
-      .then((res) => {
-        setLayoutPlots(filterPlots(res.data));
-        log('Plots retrived succesfully');
-      })
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        error(err);
-        setIsLoading(false);
-        setIsNotFound(true);
-      });
-  }, [props.auth.user.role]);
-
-  const deletePlot = (plotId) => {
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-        'x-auth-token': props.auth.token,
-      },
-    };
-
-    axios
-      .delete(`/api/plots/${plotId}`, config)
-      .then(() => {
-        log('Plot deleted succesfully');
-        getPlots();
-      })
-      .catch((e) => error('Could not delete plot', e));
-  };
+  //   axios
+  //     .delete(`/api/plots/${plotId}`, config)
+  //     .then(() => {
+  //       log('Plot deleted succesfully');
+  //       getLayout();
+  //     })
+  //     .catch((e) => error('Could not delete plot', e));
+  // };
 
   return (
-    <div style={{ padding: '1em' }}>
+    <div className="my-3 mx-3">
       {isLoading && <Loading />}
       {!isLoading && isNotFound && <NotFound />}
       {!isLoading && !isNotFound && (
-        <>
-          <PlotNavBar
-            layoutId={props.match.params.id}
-            token={props.auth.token}
-            getPlots={getPlots}
-            role={props.auth.user.role}
-          />
-          <PlotsListView
-            role={role}
-            isAuthenticated={props.auth.isAuthenticated}
-            plots={layoutPlots}
-            token={props.auth.token}
-            getPlots={getPlots}
-            hasEditPrev={hasEditPrev}
-            deletePlot={deletePlot}
-          />
-          <PlotSaleProgress />
-        </>
+        <LayoutCardView
+          layoutId={props.match.params.id}
+          token={props.auth.token}
+          role={props.auth.user.role}
+        />
       )}
     </div>
   );

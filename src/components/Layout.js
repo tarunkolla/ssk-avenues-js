@@ -11,10 +11,6 @@ const Layout = ({ isAuthenticated, role, ...props }) => {
   const [layouts, setLayouts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    getLayouts();
-  }, []);
-
   const getLayouts = useCallback(() => {
     axios({
       method: 'GET',
@@ -30,27 +26,34 @@ const Layout = ({ isAuthenticated, role, ...props }) => {
       .finally(setIsLoading(false));
   }, []);
 
-  const deleteLayoutCardHandler = useCallback((layoutId) => {
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-        'x-auth-token': props?.token,
-      },
-    };
+  const deleteLayoutCardHandler = useCallback(
+    (layoutId) => {
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          'x-auth-token': props?.token,
+        },
+      };
 
-    setIsLoading(true);
-    axios
-      .delete(`/api/layouts/${layoutId}`, config)
-      .then(() => {
-        getLayouts();
-        log('Layout deleted succesfully');
-      })
-      .catch((e) => error('Could not delete layout', e))
-      .finally(setIsLoading(false));
-  }, []);
+      setIsLoading(true);
+      axios
+        .delete(`/api/layouts/${layoutId}`, config)
+        .then(() => {
+          getLayouts();
+          log('Layout deleted succesfully');
+        })
+        .catch((e) => error('Could not delete layout', e))
+        .finally(setIsLoading(false));
+    },
+    [getLayouts, props?.token]
+  );
+
+  useEffect(() => {
+    getLayouts();
+  }, [getLayouts]);
 
   return (
-    <div style={{ padding: '1em' }}>
+    <div className="my-3 mx-3">
       {isLoading && <Loading />}
       {!isLoading && (
         <>

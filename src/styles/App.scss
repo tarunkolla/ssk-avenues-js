@@ -9,31 +9,3 @@
   z-index: -1;
   width: 100vw;
 }
-
-.fg-home-page {
-  height: 60vh;
-  width: 100vw;
-  position: absolute;
-  z-index: 10;
-  margin: auto auto;
-}
-
-.fg-home-page-title {
-  width: 100vw;
-  position: absolute;
-  z-index: 20;
-  margin: auto auto;
-  font: 100 1.5em/1.5 'Great Vibes', Helvetica, sans-serif;
-  background-image: linear-gradient(
-    to right,
-    #462523 0,
-    #cb9b51 22%,
-    #f6e27a 45%,
-    #f6f2c0 50%,
-    #f6e27a 55%,
-    #cb9b51 78%,
-    #462523 100%
-  );
-  color: transparent;
-  background-clip: text;
-}

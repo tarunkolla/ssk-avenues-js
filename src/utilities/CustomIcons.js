@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import ShareIcon from '@material-ui/icons/Share';
 
 const AddButton = (props) => {
   return (
@@ -14,6 +15,15 @@ const AddButton = (props) => {
     </IconButton>
   );
 };
+
+const ShareButton = (props) => {
+  return (
+    <IconButton onClick={props.onClick} size="small">
+      <ShareIcon />
+    </IconButton>
+  );
+};
+
 const LikeButton = () => {
   return (
     <IconButton size="small">
@@ -65,4 +75,5 @@ export {
   InfoButton,
   AddButton,
   DeleteButton,
+  ShareButton,
 };

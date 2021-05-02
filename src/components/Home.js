@@ -1,8 +1,9 @@
 import React from 'react';
-import { InfoAlert } from '../utilities/CustomAlerts';
-import { Card, Jumbotron, Container } from 'reactstrap';
-import '../styles/App.scss';
+import { Jumbotron } from 'reactstrap';
+
 import logo from '../assets/old-logo.jpg';
+
+import '../styles/Home.scss';
 
 const Home = () => {
   return (
@@ -17,15 +18,7 @@ const Home = () => {
           Quality is Never Out of Style
         </h5>
       </div>
-      <Jumbotron
-        style={{
-          height: '89vh',
-          margin: '0.5em',
-          borderRadius: '.25em',
-          opacity: '.35',
-        }}
-        fluid
-      ></Jumbotron>
+      <Jumbotron className="mx-3 my-3 bg-container"></Jumbotron>
     </>
   );
 };

@@ -1,0 +1,25 @@
+.layout-arrow {
+  top: 3.25em;
+  position: relative;
+  z-index: 8888;
+  font-size: 3em !important;
+  color: white;
+}
+
+.layout-right {
+  float: right;
+}
+
+.layout-container {
+  position: absolute;
+  width: 100%;
+}
+
+.layout-background {
+  background-color: white;
+  border-radius: 0.5em;
+}
+
+.admin-nav-bar-button {
+  margin-right: 1em;
+}

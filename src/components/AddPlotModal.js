@@ -16,8 +16,7 @@ import {
 import axios from 'axios';
 import { log, error } from '../utilities/Logger';
 
-const AddPlotModal = (props) => {
-  const { isModalOpen, setIsModalOpen, token, getPlots } = props;
+const AddPlotModal = ({ isModalOpen, setIsModalOpen, token, getPlots }) => {
   const [isAdded, setIsAdded] = useState(false);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
   const [formData, updateFormData] = useState('');

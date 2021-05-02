@@ -16,6 +16,8 @@ import About from './components/About.js';
 import Power from './components/Power.js';
 import Construction from './components/Construction';
 
+import './styles/App.scss';
+
 const Navigation = () => {
   return (
     <Switch>
