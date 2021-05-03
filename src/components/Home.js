@@ -1,7 +1,7 @@
 import React from 'react';
 import { Jumbotron } from 'reactstrap';
 
-import logo from '../assets/old-logo.jpg';
+import logo from '../assets/logo.jpeg';
 
 import '../styles/Home.scss';
 

@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import DirectionsIcon from '@material-ui/icons/Directions';
-import PhoneIcon from '@material-ui/icons/Phone';
-import RoomIcon from '@material-ui/icons/Room';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import {
-  Card,
   Button,
-  CardImg,
   CardTitle,
-  CardGroup,
   CardBody,
-  Container,
   Row,
   Col,
   Form,
@@ -20,7 +12,6 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 
-import location from '../assets/office-location.png';
 import { log, error } from '../utilities/Logger';
 
 const Message = ({ token }) => {

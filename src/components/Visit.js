@@ -20,7 +20,7 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 
-import location from '../assets/office-location.png';
+import location from '../assets/location.png';
 import { log, error } from '../utilities/Logger';
 
 const Visit = () => {
