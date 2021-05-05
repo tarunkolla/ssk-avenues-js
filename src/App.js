@@ -53,5 +53,4 @@ const App = () => {
   );
 };
 
-export { Navigation };
 export default App;
