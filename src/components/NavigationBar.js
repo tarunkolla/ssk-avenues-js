@@ -41,9 +41,9 @@ const NavigationBar = ({ user }) => {
           <NavItem>
             <NavLink href="/realestate">Real Estate</NavLink>
           </NavItem>
-          <NavItem>
+          {/* <NavItem>
             <NavLink href="/construction">Construction</NavLink>
-          </NavItem>
+          </NavItem> */}
           <NavItem>
             <NavLink href="/power">Power</NavLink>
           </NavItem>

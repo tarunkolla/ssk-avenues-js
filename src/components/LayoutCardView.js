@@ -317,10 +317,11 @@ const LayoutCardView = ({ layoutId, token, role }) => {
             onClose={() => setIsLayoutUploadOpen(false)}
           />
           <PlotEditModal
+            layoutId={layoutId}
             token={token}
             isOpen={isPlotUploadOpen}
+            plots={layout?.plots}
             onCancel={() => setIsPlotUploadOpen(false)}
-            onSubmit={plotUploadModalSubmit}
           />
           <Card>
             {layout?.images?.length ? (

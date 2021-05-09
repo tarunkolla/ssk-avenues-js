@@ -200,10 +200,10 @@ const ImageUploadModal = ({
         </Progress>
       </ModalBody>
       <ModalFooter>
-        <Button color="secondary" size="sm" onClick={onCancel}>
+        <Button color="secondary" outline size="sm" onClick={onCancel}>
           Cancel
         </Button>{' '}
-        <Button color="primary" size="sm" onClick={imageOrderHandler}>
+        <Button color="success" size="sm" onClick={imageOrderHandler}>
           Save
         </Button>
       </ModalFooter>

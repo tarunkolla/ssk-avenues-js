@@ -95,7 +95,7 @@ const BrochureUploadModal = ({ isOpen, onCancel, layoutId, token }) => {
             <Button outline color="secondary" size="sm" onClick={onCancel}>
               Cancel
             </Button>{' '}
-            <Button color="primary" size="sm" onClick={fileUploadHandler}>
+            <Button color="success" size="sm" onClick={fileUploadHandler}>
               Upload
             </Button>
           </>

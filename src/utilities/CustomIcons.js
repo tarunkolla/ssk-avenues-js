@@ -7,6 +7,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ShareIcon from '@material-ui/icons/Share';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 const AddButton = (props) => {
   return (
@@ -68,7 +69,20 @@ const DeleteButton = (props) => {
   );
 };
 
+const AddPlusButton = ({ onClick }) => {
+  return (
+    <IconButton onClick={onClick} size="small">
+      <AddBoxIcon
+        style={{
+          color: 'grey',
+        }}
+      />
+    </IconButton>
+  );
+};
+
 export {
+  AddPlusButton,
   EditButton,
   UnlikeButton,
   LikeButton,
